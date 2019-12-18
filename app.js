@@ -3,6 +3,7 @@ const app = express()
 const exphbs = require('express-handlebars')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
+const generateUrlCode = require('./generate_url_code')
 const port = 3000
 
 mongoose.connect('mongodb://localhost/url-shortener-mongoose', { useNewUrlParser: true, useUnifiedTopology: true })
@@ -21,8 +22,15 @@ app.use(express.static('public'))
 
 app.use(bodyParser.urlencoded({ extended: true }))
 
+// 設定路由
 app.get('/', (req, res) => {
   res.render('index')
+})
+
+app.post('/', (req, res) => {
+  const url = req.body.url
+  const urlCode = generateUrlCode(url)
+  res.render('index', { url, urlCode })
 })
 
 app.listen(port, () => {
