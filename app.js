@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const exphbs = require('express-handlebars')
 const mongoose = require('mongoose')
+const bodyParser = require('body-parser')
 const port = 3000
 
 mongoose.connect('mongodb://localhost/url-shortener-mongoose', { useNewUrlParser: true, useUnifiedTopology: true })
@@ -17,6 +18,8 @@ app.engine('hbs', exphbs({ extname: 'hbs', defaultLayout: 'main' }))
 app.set('view engine', 'hbs')
 
 app.use(express.static('public'))
+
+app.use(bodyParser.urlencoded({ extended: true }))
 
 app.get('/', (req, res) => {
   res.render('index')
