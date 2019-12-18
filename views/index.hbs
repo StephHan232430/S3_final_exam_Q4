@@ -3,8 +3,8 @@
     <div class="input-container">
       {{#if urlCode}}
       <div class="url-code-container col-6 text-left mx-auto">
-        <h2>Success! Please use this link:</h2>
-        <h2 class="pt-3"><a class="text-info" id="url-code" href="{{{url}}}">{{{urlCode}}}</a>
+        <h2 class="font-weight-bold">Success! Please use this link:</h2>
+        <h2 class="pt-3 font-weight-bold"><a class="text-info" id="url-code" href="{{{url}}}">{{{urlCode}}}</a>
         </h2>
       </div>
       {{else}}
@@ -19,7 +19,7 @@
   </form>
 
   {{#if urlCode}}
-  <button id="copy" class="col-4 btn btn-lg btn-outline-info mt-5 copy"
-    data-clipboard-target="#url-code"><strong>Copy</strong></button>
+  <button id="copy" class="col-4 btn btn-lg btn-outline-info mt-5 font-weight-bold copy"
+    data-clipboard-target="#url-code">Copy</button>
   {{/if}}
 </div>
