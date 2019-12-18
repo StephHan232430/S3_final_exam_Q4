@@ -4,7 +4,8 @@
       {{#if urlCode}}
       <div class="url-code-container col-6 text-left mx-auto">
         <h2>Success! Please use this link:</h2>
-        <h2 class="pt-3"><a class="text-info" id="url-code" href="{{{url}}}">{{{urlCode}}}</a></h2>
+        <h2 class="pt-3"><a class="text-info" id="url-code" href="{{{url}}}">{{{urlCode}}}</a>
+        </h2>
       </div>
       {{else}}
       <input type="url" name="url" class="form-control form-control-lg border-secondary bg-light mb-5"
@@ -12,11 +13,13 @@
       {{/if}}
     </div>
 
-    {{#if urlCode}}
-    <button id="copy" class="col-4 btn btn-lg btn-outline-info mt-5 copy"
-      data-clipboard-target="#url-code"><strong>Copy</strong></button>
-    {{else}}
+    {{#unless urlCode}}
     <button type="submit" class="btn btn-outline-light btn-lg col-6 my-5">Shorten</button>
-    {{/if}}
+    {{/unless}}
   </form>
+
+  {{#if urlCode}}
+  <button id="copy" class="col-4 btn btn-lg btn-outline-info mt-5 copy"
+    data-clipboard-target="#url-code"><strong>Copy</strong></button>
+  {{/if}}
 </div>
