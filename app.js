@@ -47,11 +47,10 @@ app.post('/', (req, res) => {
 })
 
 app.get('/:code', (req, res) => {
-  console.log(req.params)
   const copiedLink = 'https://url-shortener-mongoose.herokuapp.com/' + req.params.code
   Url.findOne({ url_code: copiedLink }, (err, url) => {
     if (err) return console.log(err)
-    return res.redirect(`${url.url}`)
+    return res.redirect(`${url}`)
   })
 })
 
