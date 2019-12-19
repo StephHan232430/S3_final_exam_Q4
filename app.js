@@ -77,9 +77,14 @@ app.get('/:code', (req, res) => {
     copiedLink = 'https://stark-eyrie-57663.herokuapp.com/'
   }
   copiedLink += req.params.code
-  Url.findOne({ url_code: copiedLink }, (err, urlRecord) => {
+  Url.findOne({ url_code: copiedLink }).then(record => {
+    if (record) {
+      res.redirect(`${record.url}`)
+    } else {
+      res.redirect(`${copiedLink}`)
+    }
+  }).catch(err => {
     if (err) return console.log(err)
-    res.redirect(`${urlRecord.url}`)
   })
 })
 
