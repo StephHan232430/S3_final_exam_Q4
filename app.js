@@ -58,6 +58,9 @@ app.get('/:code', (req, res) => {
   const copiedLink = 'https://url-shortener-mongoose.herokuapp.com/' + req.params.code
   Url.findOne({ url_code: copiedLink }, (err, urlRecord) => {
     if (err) return console.log(err)
+    if (!urlRecord) {
+      res.redirect('https://url-shortener-mongoose.herokuapp.com/')
+    }
     res.redirect(`${urlRecord.url}`)
   })
 })
