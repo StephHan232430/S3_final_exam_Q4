@@ -3,12 +3,13 @@
     <div class="input-container">
       {{#if urlCode}}
       <div class="url-code-container col-8 text-center mx-auto">
-        <h2>Success! Please use this link:</h2>
-        <h5 class="pt-3" style="font-size: x-large;">
-          <a class="text-info" id="url-code" href="{{{url}}}">{{{urlCode}}}</a>
+        <h2 class="font-weight-normal">Success! Please use this link:</h2>
+        <h5 class="pt-3 lead" style="font-size: x-large;">
+          <a class="text-warning" id="url-code" href="{{{url}}}">{{{urlCode}}}</a>
         </h5>
       </div>
       {{else}}
+      {{!-- 設定為必填欄位 --}}
       <input type="url" name="url" class="form-control form-control-lg border-secondary bg-light mb-5"
         placeholder="Input URL here" required>
       {{/if}}
@@ -20,7 +21,7 @@
   </form>
 
   {{#if urlCode}}
-  <button id="copy" class="col-4 btn btn-lg btn-outline-info mt-5 font-weight-bold copy"
+  <button id="copy" class="col-4 btn btn-lg btn-outline-warning mt-5 font-weight-bold copy"
     data-clipboard-target="#url-code">Copy Link</button>
   {{/if}}
 </div>

@@ -36,21 +36,33 @@ app.get('/', (req, res) => {
 
 app.post('/', (req, res) => {
   const url = req.body.url
-
   Url.findOne({ url: url }).then(record => {
     let urlCode = 'http://localhost:3000/'
     if (productionMode) {
       urlCode = 'https://stark-eyrie-57663.herokuapp.com/'
     }
+
     if (!record) {
       urlCode += generateUrlCode(url)
-      const urlRecord = new Url({
-        url: url,
-        url_code: urlCode
-      })
+      // 比對是否可在資料庫中找到任一筆record的url_code內容和剛產生的urlCode一樣
+      // 若有找到符合的record，則重新產生urlCode，直到查無符合record
+      // 若查無符合record則建立Url實例，並將資料存入資料庫中
+      Url.findOne({ url_code: urlCode }).then(record => {
+        if (record) {
+          while (record.url_code === urlCode) {
+            urlCode = urlCode.substring(0, urlCode.length - 5)
+            urlCode += generateUrlCode(url)
+          }
+        } else {
+          const urlRecord = new Url({
+            url: url,
+            url_code: urlCode
+          })
 
-      urlRecord.save(err => {
-        if (err) return console.log(err)
+          urlRecord.save(err => {
+            if (err) return console.log(err)
+          })
+        }
       })
     } else {
       urlCode = record.url_code
