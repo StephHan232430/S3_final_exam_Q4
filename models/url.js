@@ -4,7 +4,7 @@ require('mongoose-type-url')
 
 const urlSchema = new Schema({
   url: {
-    type: mongoose.SchemaTypes.url,
+    type: mongoose.SchemaTypes.Url,
     required: true
   },
   url_code: {

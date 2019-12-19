@@ -4,9 +4,14 @@ const exphbs = require('express-handlebars')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const generateUrlCode = require('./generate_url_code')
+const Url = require('./models/url')
 const port = 3000
 
-mongoose.connect('mongodb://localhost/url-shortener-mongoose', { useNewUrlParser: true, useUnifiedTopology: true })
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
+
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/url-shortener-mongoose', { useNewUrlParser: true, useUnifiedTopology: true })
 const db = mongoose.connection
 db.on('error', () => {
   console.log('mongodb error!')
@@ -30,9 +35,24 @@ app.get('/', (req, res) => {
 app.post('/', (req, res) => {
   const url = req.body.url
   const urlCode = generateUrlCode(url)
-  res.render('index', { url, urlCode })
+  const urlRecord = new Url({
+    url: url,
+    url_code: urlCode
+  })
+
+  urlRecord.save(err => {
+    if (err) return console.log(err)
+    res.render('index', { url, urlCode })
+  })
 })
 
-app.listen(port, () => {
+app.get('/:code', (req, res) => {
+  Url.findOne({ url_code: req.params.code }, (err, url) => {
+    if (err) return console.log(err)
+    return res.redirect(`${url.url}`)
+  })
+})
+
+app.listen(process.env.PORT || port, () => {
   console.log(`App is running on ${port}`)
 })
