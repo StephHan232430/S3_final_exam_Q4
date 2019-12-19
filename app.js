@@ -81,6 +81,7 @@ app.get('/:code', (req, res) => {
     if (record) {
       res.redirect(`${record.url}`)
     } else {
+      copiedLink = copiedLink.substring(0, copiedLink.length - 6)
       res.redirect(`${copiedLink}`)
     }
   }).catch(err => {
