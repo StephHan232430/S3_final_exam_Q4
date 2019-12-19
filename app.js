@@ -34,14 +34,22 @@ app.get('/', (req, res) => {
 
 app.post('/', (req, res) => {
   const url = req.body.url
-  const urlCode = 'https://url-shortener-mongoose.herokuapp.com/' + generateUrlCode(url)
-  const urlRecord = new Url({
-    url: url,
-    url_code: urlCode
-  })
 
-  urlRecord.save(err => {
-    if (err) return console.log(err)
+  Url.findOne({ url: url }).then(record => {
+    let urlCode
+    if (!record) {
+      urlCode = 'https://url-shortener-mongoose.herokuapp.com/' + generateUrlCode(url)
+      const urlRecord = new Url({
+        url: url,
+        url_code: urlCode
+      })
+
+      urlRecord.save(err => {
+        if (err) return console.log(err)
+      })
+    } else {
+      urlCode = record.url_code
+    }
     res.render('index', { url, urlCode })
   })
 })
