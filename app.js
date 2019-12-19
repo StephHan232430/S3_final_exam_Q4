@@ -34,7 +34,7 @@ app.get('/', (req, res) => {
 
 app.post('/', (req, res) => {
   const url = req.body.url
-  const urlCode = generateUrlCode(url)
+  const urlCode = 'https://url-shortener-mongoose.herokuapp.com/' + generateUrlCode(url)
   const urlRecord = new Url({
     url: url,
     url_code: urlCode
