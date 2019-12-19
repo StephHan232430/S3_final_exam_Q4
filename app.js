@@ -58,10 +58,13 @@ app.get('/:code', (req, res) => {
   const copiedLink = 'https://url-shortener-mongoose.herokuapp.com/' + req.params.code
   Url.findOne({ url_code: copiedLink }, (err, urlRecord) => {
     if (err) return console.log(err)
-    return res.redirect(`${urlRecord.url}`)
+    res.redirect(`${urlRecord.url}`)
   })
 })
 
 app.listen(process.env.PORT || port, () => {
   console.log(`App is running on ${port}`)
 })
+
+// 'https://url-shortener-mongoose.herokuapp.com/' 
+// 'http://localhost:3000/'
