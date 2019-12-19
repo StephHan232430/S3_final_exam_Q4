@@ -38,7 +38,7 @@ app.post('/', (req, res) => {
   Url.findOne({ url: url }).then(record => {
     let urlCode
     if (!record) {
-      urlCode = process.env.CALLBACK + generateUrlCode(url)
+      urlCode = 'https://url-shortener-mongoose.herokuapp.com/' + generateUrlCode(url)
       const urlRecord = new Url({
         url: url,
         url_code: urlCode
@@ -55,7 +55,7 @@ app.post('/', (req, res) => {
 })
 
 app.get('/:code', (req, res) => {
-  const copiedLink = process.env.CALLBACK + req.params.code
+  const copiedLink = 'https://url-shortener-mongoose.herokuapp.com/' + req.params.code
   Url.findOne({ url_code: copiedLink }, (err, urlRecord) => {
     if (err) return console.log(err)
     res.redirect(`${urlRecord.url}`)
