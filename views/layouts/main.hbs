@@ -12,9 +12,9 @@
   <link rel="stylesheet" href="/stylesheets/style.css">
 </head>
 
-<body class="bg-dark text-light py-5">
-  <div class="container text-center my-5">
-    <h1 class="my-5 py-5 font-weight-bold">URL Shortener</h1>
+<body class="bg-dark text-light">
+  <div class="container text-center py-5">
+    <h1 class="py-5 py-5 font-weight-bold">URL Shortener</h1>
     <div class="icon-wrapper pb-5">
       <a class="text-white" {{#if productionMode}} href="https://stark-eyrie-57663.herokuapp.com/" {{else}}
         href="http://localhost:3000/" {{/if}}>
@@ -22,10 +22,9 @@
         <p class="form-text text-light lead">Click me to shorten other URLs !</p>
       </a>
     </div>
+
+    {{{ body }}}
   </div>
-
-  {{{ body }}}
-
 
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
     integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
