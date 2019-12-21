@@ -53,16 +53,15 @@ app.post('/', (req, res) => {
             urlCode = urlCode.substring(0, urlCode.length - 5)
             urlCode += generateUrlCode(url)
           }
-        } else {
-          const urlRecord = new Url({
-            url: url,
-            url_code: urlCode
-          })
-
-          urlRecord.save(err => {
-            if (err) return console.log(err)
-          })
         }
+        const urlRecord = new Url({
+          url: url,
+          url_code: urlCode
+        })
+
+        urlRecord.save(err => {
+          if (err) return console.log(err)
+        })
       })
     } else {
       urlCode = record.url_code
