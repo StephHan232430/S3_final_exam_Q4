@@ -18,12 +18,12 @@
     </div>
 
     {{#unless urlCode}}
-    <button type="submit" class="btn btn-outline-light btn-lg col-6 my-5">Shorten</button>
+    <button type="submit" class="btn btn-outline-light btn-lg col-3 my-5">Shorten</button>
     {{/unless}}
   </form>
 
   {{#if urlCode}}
-  <button id="copy" class="col-4 btn btn-lg btn-outline-warning mt-5 font-weight-bold copy"
+  <button id="copy" class="col-3 btn btn-lg btn-outline-warning mt-5 font-weight-bold copy"
     data-clipboard-target="#url-code">Copy Link</button>
   {{/if}}
 </div>
